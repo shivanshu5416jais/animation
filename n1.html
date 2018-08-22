@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#main{
+  background: green;
+}
+#container {
+  width: 500px;
+  height: 500px;
+  position: relative;
+  border: 10px solid black;
+  
+  margin-left: 400px;
+  background : red;
+   animation-name: example;
+     animation-duration:5s;
+    animation-iteration-count:4;
+}
+@keyframes example {
+    from {background-color: red;}
+    to {background-color: yellow;}
+    }
+
+
+#animate {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+ // background-color: red;
+}
+#myCanvas{
+ color: red;
+  position: absolute;
+ 
+}
+#aa{
+ position:absolute;
+ padding:200px;
+ 
+ font-style: italic; 
+font-weight: bolder;
+ }
+</style>
+<script type='text/javascript'>
+window.onload=function(){
+    function DrawSpiral(mod) {
+        var c = document.getElementById("myCanvas");
+        var cxt = c.getContext("2d");//for 2d image
+        var centerX = 25;//center of spiral
+        var centerY = 25;
+        cxt.save();
+        cxt.clearRect(0, 0, c.width, c.height);
+        cxt.beginPath();//begin drawing shape
+        cxt.moveTo(centerX, centerY);
+        var STEPS_PER_ROTATION = 60;
+        var increment = 2 * Math.PI / STEPS_PER_ROTATION;
+        var theta = increment;
+        while (theta < 4 * Math.PI) {
+            var newX = centerX + theta * Math.cos(theta - mod);
+            var newY = centerY + theta * Math.sin(theta - mod);
+            cxt.lineTo(newX, newY);
+            theta = theta + increment;
+        }
+        cxt.stroke();
+        cxt.restore();
+    }
+    var counter = 0;
+    setInterval(function () {
+        DrawSpiral(counter);
+        counter += 0.075;
+    }, 10);//for time of spiral rotation
+}
+function myMove() {
+  var elem = document.getElementById("animate");   
+  var pos = 0;
+  var x=0;
+  var p=450;
+  var xx=450;
+  var id = setInterval(frame, 5);
+  function frame() {
+     if(pos!=450)
+      {pos++;  
+      elem.style.left = pos + 'px'; 
+    }
+   else if(x!=450)
+   {x++; 
+      elem.style.top = x + 'px'; 
+      
+    }
+    else if(p!=0)
+    { p--;
+    elem.style.left = p + 'px'; 
+    
+    }
+    else if (xx!=0) {
+      xx--;
+      elem.style.top = xx + 'px'; 
+    }
+    }
+   
+}
+</script>
+</head>
+<body>
+<div id="main">
+<p>
+<button onclick="myMove()">Click Me</button>
+
+</p> 
+<div id ="container">
+<div id="animate">
+  <canvas id="myCanvas" width="300" height="300"></canvas>
+
+</div>
+ <p id="aa">MY FIRST ANIMATION</p>
+</div>
+</div>
+
+</body>
+</html>
